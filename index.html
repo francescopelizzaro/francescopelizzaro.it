@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Francesco Pelizzaro · Editor e consulente editoriale</title>
+<meta name="description" content="Consulenza editoriale mirata per chi scrive: partiamo da una domanda precisa sulle tue pagine e arrivi a sapere che cosa migliorare e da dove cominciare.">
+<link rel="canonical" href="https://francescopelizzaro.it/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:url" content="https://francescopelizzaro.it/">
+<meta property="og:title" content="Francesco Pelizzaro · Editor e consulente editoriale">
+<meta property="og:description" content="Consulenza editoriale mirata per chi scrive, esordiente o già pubblicato.">
+<meta property="og:image" content="https://francescopelizzaro.it/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#193B38">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Source Serif 4";src:url("fonts/source-serif-4.woff2") format("woff2");font-weight:200 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Serif 4";src:url("fonts/source-serif-4-italic.woff2") format("woff2");font-weight:200 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Figtree";src:url("fonts/figtree.woff2") format("woff2");font-weight:300 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Figtree";src:url("fonts/figtree-italic.woff2") format("woff2");font-weight:300 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Caveat";src:url("fonts/caveat-600.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Alex Brush";src:url("fonts/alex-brush.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+</style>
+<style>
+/* Layout: fasce alterne avorio, verde e ocra raccordate da tagli diagonali, come nel carosello Instagram; contenitore 1160px, testo corrente entro 65 caratteri */
+:root {
+  --ink: #193B38;
+  --ink-deeper: #10292A;
+  --paper: #F4F0E4;
+  --ochre: #D9A441;
+  --sage: #AACBC2;
+  --mist: #DCE8E4;
+  --muted: #4E6B66;
+  --fade-1: #6F8F89;
+  --fade-2: #A3BAB4;
+  --rule: rgba(25, 59, 56, .16);
+  --rule-on-ink: rgba(170, 203, 194, .28);
+
+  --display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --body: "Figtree", "Helvetica Neue", Arial, sans-serif;
+  --hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --sign: "Alex Brush", "Brush Script MT", cursive;
+
+  --wrap: 1160px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --slant: clamp(22px, 4.2vw, 60px);
+  --section-y: clamp(64px, 9vw, 128px);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; height: auto; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--ochre); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3, p, ul, ol, blockquote, figure { margin: 0; }
+h1, h2 { font-family: var(--display); font-weight: 800; letter-spacing: -0.022em; text-wrap: balance; }
+h2 { font-size: clamp(2.1rem, 5.2vw, 3.6rem); line-height: 1.04; }
+h3 { font-family: var(--body); font-weight: 600; font-size: 1.0625rem; letter-spacing: .01em; }
+em { font-style: italic; }
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+.measure { max-width: 62ch; }
+.eyebrow { display: inline-flex; align-items: center; gap: .6rem; font-weight: 500; font-size: .95rem; letter-spacing: .02em; }
+.eyebrow::before { content: ""; width: 10px; height: 10px; background: var(--ochre); flex: none; }
+
+/* Fasce e tagli diagonali */
+.band { position: relative; padding-block: var(--section-y); }
+.band--ink { background: var(--ink); color: var(--paper); }
+.band--paper { background: var(--paper); color: var(--ink); }
+.band--ochre { background: var(--ochre); color: var(--ink); }
+.band--sage { background: var(--sage); color: var(--ink); }
+.slant, .slant-rev { z-index: 1; }
+.slant::before, .slant-rev::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: calc(100% - 1px);
+  height: var(--slant); background: inherit; pointer-events: none;
+}
+.slant::before { clip-path: polygon(0 100%, 100% 0, 100% 100%); }
+.slant-rev::before { clip-path: polygon(0 0, 100% 100%, 0 100%); }
+
+/* Intestazione */
+.site-head {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: rgba(244, 240, 228, .94);
+  backdrop-filter: saturate(1.2) blur(8px);
+  -webkit-backdrop-filter: saturate(1.2) blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.site-head .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 68px; }
+.brand { text-decoration: none; display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+.brand strong { font-family: var(--display); font-weight: 700; font-size: 1.2rem; letter-spacing: -0.01em; }
+.brand span { font-size: .82rem; color: var(--muted); }
+.nav { display: flex; align-items: center; gap: clamp(.9rem, 2vw, 1.75rem); font-size: .95rem; font-weight: 500; }
+.nav a { text-decoration: none; }
+.nav a:not(.btn):hover { text-decoration: underline; text-decoration-color: var(--ochre); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+@media (max-width: 860px) { .nav a:not(.btn) { display: none; } }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+  min-height: 46px; padding: .7rem 1.25rem;
+  font-family: var(--body); font-weight: 600; font-size: 1rem; line-height: 1.2;
+  text-decoration: none; border: 2px solid var(--ink); cursor: pointer;
+  transition: background-color .18s ease, color .18s ease, transform .18s ease;
+}
+.btn--solid { background: var(--ink); color: var(--paper); }
+.btn--solid:hover { background: var(--ink-deeper); }
+.btn--line { background: transparent; color: var(--ink); }
+.btn--line:hover { background: var(--ink); color: var(--paper); }
+.btn--ochre { background: var(--ochre); border-color: var(--ochre); color: var(--ink); }
+.btn--ochre:hover { background: var(--paper); border-color: var(--paper); }
+.btn svg { flex: none; }
+.nav .btn { min-height: 40px; padding: .5rem 1rem; font-size: .95rem; }
+
+/* Apertura */
+.hero { padding-top: clamp(40px, 7vw, 96px); padding-bottom: 0; overflow: hidden; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(24px, 4vw, 64px); align-items: end; }
+.hero-copy { padding-bottom: calc(var(--section-y) + var(--slant)); display: flex; flex-direction: column; gap: 1.6rem; min-width: 0; }
+.hero h1 { font-size: clamp(4rem, 11.5vw, 9rem); line-height: 1.04; margin-top: .4rem; }
+.rl { display: block; position: relative; width: max-content; max-width: 100%; }
+.rl--2 { color: var(--fade-1); }
+.rl--3 { color: var(--fade-2); }
+.strike { position: absolute; left: -4%; width: 108%; height: .2em; overflow: visible; pointer-events: none; }
+.strike path { fill: none; stroke: var(--ochre); stroke-width: .06em; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.strike { clip-path: inset(-60% 100% -60% -2%); animation: wipe .55s cubic-bezier(.5, 0, .3, 1) forwards; }
+.rl--2 .strike { top: 40%; animation-delay: .35s; }
+.rl--3 .strike--a { top: 33%; animation-delay: .8s; }
+.rl--3 .strike--b { top: 47%; animation-delay: 1.05s; }
+@keyframes wipe { to { clip-path: inset(-60% -2% -60% -2%); } }
+@media (prefers-reduced-motion: reduce) { .strike { animation: none; clip-path: none; } }
+.hero-turn { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(1.75rem, 3.6vw, 2.9rem); line-height: 1.1; letter-spacing: -0.01em; }
+.hero-lead { font-size: clamp(1.08rem, 1.5vw, 1.22rem); max-width: 34em; }
+.hero-for { font-size: .98rem; color: var(--muted); max-width: 34em; }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+.portrait {
+  position: relative; align-self: end; background: var(--sage);
+  clip-path: polygon(0 9%, 100% 0, 100% 100%, 0 100%);
+  padding-top: 12%;
+  margin-right: calc(-1 * var(--gutter));
+}
+.portrait img { width: 100%; }
+@media (min-width: 1160px) { .portrait { margin-right: 0; } }
+
+@media (max-width: 820px) {
+  .hero .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hero-copy { padding-bottom: 0; }
+  .portrait { width: min(100%, 520px); justify-self: center; margin-right: 0; margin-top: .5rem; }
+}
+
+/* Le domande */
+.questions-intro { display: grid; gap: 1.25rem; margin-bottom: clamp(36px, 5vw, 56px); }
+.questions-intro h2 em { font-weight: 700; text-decoration: underline; text-decoration-color: var(--ochre); text-decoration-thickness: .09em; text-underline-offset: .14em; text-decoration-skip-ink: none; }
+.questions-intro p { font-size: 1.12rem; }
+.q-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.q-group h3 { color: var(--muted); margin-bottom: .5rem; }
+.q-list { list-style: none; padding: 0; }
+.q-list li { padding-block: 1.15rem; border-top: 1px solid var(--rule); display: grid; gap: .35rem; }
+.q-list li:last-child { border-bottom: 1px solid var(--rule); }
+.q-text { font-family: var(--display); font-style: italic; font-weight: 500; font-size: clamp(1.18rem, 1.9vw, 1.4rem); line-height: 1.3; }
+.q-need { font-size: .95rem; color: var(--muted); }
+.q-need b { font-weight: 600; color: var(--ink); }
+.q-side { display: grid; gap: clamp(28px, 4vw, 40px); }
+.broad { border: 2px solid var(--ochre); padding: 1.4rem 1.5rem; display: grid; gap: .7rem; }
+.broad p:first-child { font-family: var(--display); font-style: italic; font-size: 1.3rem; line-height: 1.3; }
+@media (max-width: 820px) { .q-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* La consulenza */
+.consulenza { padding-top: calc(var(--section-y) + 8px); }
+.section-head { display: grid; gap: 1rem; margin-bottom: clamp(36px, 6vw, 72px); }
+.stairs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); align-items: start; list-style: none; padding: 0; }
+.stair { position: relative; border-top: 3px solid var(--ink); padding: 1.4rem 1.4rem 1.6rem 0; display: grid; gap: .55rem; }
+.stair::before { content: ""; position: absolute; left: 0; top: -9px; width: 15px; height: 15px; border-radius: 50%; background: var(--ink); }
+.stair:nth-child(1) { margin-top: clamp(0px, 9vw, 150px); }
+.stair:nth-child(2) { margin-top: clamp(0px, 4.5vw, 75px); }
+.stair-label { font-family: var(--display); font-style: italic; font-weight: 800; font-size: clamp(2.4rem, 4.6vw, 3.6rem); line-height: 1; letter-spacing: -0.015em; }
+.stair p { font-size: 1.12rem; max-width: 24ch; }
+.stair--goal { background: var(--ink); color: var(--paper); padding-left: 1.6rem; padding-bottom: 2rem; }
+.stair--goal::before { left: 1.6rem; background: var(--ochre); }
+.stair--goal .stair-label { color: var(--ochre); }
+.stair--goal .goal-main { font-family: var(--display); font-weight: 700; font-size: clamp(1.35rem, 2.2vw, 1.7rem); line-height: 1.2; max-width: 16ch; }
+.stair--goal .goal-sub { font-size: .98rem; color: var(--sage); max-width: 30ch; }
+@media (max-width: 820px) {
+  .stairs { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .stair:nth-child(1), .stair:nth-child(2) { margin-top: 0; }
+  .stair:nth-child(2) { margin-left: 1.25rem; }
+  .stair--goal { margin-left: 2.5rem; }
+}
+
+
+/* Esempio */
+.esempio .section-head p { font-weight: 500; }
+.ex-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.note-card { background: var(--paper); padding: clamp(1.6rem, 3.6vw, 2.8rem) clamp(1.4rem, 3.6vw, 2.8rem) clamp(1.2rem, 2.8vw, 2rem); transform: rotate(-1.5deg); box-shadow: 0 18px 40px -24px rgba(25, 59, 56, .55); }
+.note-card blockquote { font-family: var(--display); font-style: italic; font-weight: 400; font-size: clamp(1.6rem, 3.3vw, 2.5rem); line-height: 1.3; letter-spacing: -0.01em; }
+.circled { position: relative; white-space: nowrap; }
+.circled svg { position: absolute; left: -5%; top: -20%; width: 109%; height: 140%; overflow: visible; pointer-events: none; }
+.circled path { fill: none; stroke: var(--ink); stroke-width: 2.5px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.margin-note { display: flex; align-items: flex-end; justify-content: flex-end; gap: .4rem; margin-top: .6rem; }
+.margin-note span { font-family: var(--hand); font-weight: 600; font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1; transform: rotate(-4deg); }
+.margin-note svg { flex: none; width: 54px; height: 44px; overflow: visible; }
+.margin-note path { fill: none; stroke: var(--ink); stroke-width: 2.5px; stroke-linecap: round; stroke-linejoin: round; }
+.ex-explain { display: grid; gap: 1.2rem; font-size: 1.12rem; }
+.ex-explain strong { font-weight: 700; }
+.ex-explain .rewrite { display: block; margin-top: .35rem; font-family: var(--display); font-style: italic; font-weight: 500; font-size: 1.25rem; line-height: 1.35; }
+.method { margin-top: clamp(48px, 7vw, 88px); display: grid; gap: 1.1rem; }
+.method ol { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 2px solid var(--ink); counter-reset: m; }
+.method li { counter-increment: m; padding: 1rem 1.2rem 0 0; display: grid; gap: .35rem; font-weight: 500; line-height: 1.4; }
+.method li::before { content: counter(m); font-family: var(--display); font-style: italic; font-weight: 800; font-size: 2rem; line-height: 1; }
+.method .creative { font-family: var(--display); font-weight: 700; font-size: clamp(1.2rem, 2vw, 1.45rem); }
+@media (max-width: 820px) {
+  .ex-grid { grid-template-columns: minmax(0, 1fr); }
+  .method ol { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.2rem; }
+}
+
+/* Come funziona */
+.how-block { display: grid; gap: 1.4rem; }
+.materials { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); }
+.material { border: 1.5px solid var(--ink); padding: 1.4rem 1.4rem 1.6rem; display: grid; gap: .6rem; align-content: start; min-width: 0; }
+.material .qty { display: flex; align-items: baseline; gap: .55rem; flex-wrap: wrap; }
+.material .qty b { font-family: var(--display); font-weight: 800; font-size: 3.4rem; line-height: .9; font-variant-numeric: lining-nums; }
+.material .qty span { font-weight: 600; }
+.material h4 { margin: 0; font-family: var(--display); font-style: italic; font-weight: 700; font-size: 1.45rem; line-height: 1.1; }
+.material .chars { font-size: .92rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.material p { font-size: 1rem; }
+.cartella { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; align-items: baseline; padding: 1rem 1.25rem; background: var(--mist); }
+.cartella strong { font-family: var(--display); font-weight: 700; }
+@media (max-width: 900px) { .materials { grid-template-columns: minmax(0, 1fr); } }
+
+
+/* Chi sono */
+.chi .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.hello { display: grid; gap: .2rem; }
+.hello h2 { font-size: clamp(2.6rem, 6vw, 4.4rem); }
+.signature { font-family: var(--sign); font-weight: 400; font-size: clamp(3.6rem, 8.5vw, 6.6rem); line-height: 1.02; color: var(--paper); }
+.signature span { display: block; }
+.signature span + span { padding-left: .35em; }
+.chi-body { display: grid; gap: 1.8rem; }
+.claim { font-family: var(--display); font-style: italic; font-weight: 500; font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.25; max-width: 24ch; }
+.claim em { color: var(--ochre); }
+.creds { list-style: none; padding: 0; display: grid; gap: .9rem; font-size: 1.15rem; color: var(--mist); }
+.creds li { display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: 1rem; align-items: baseline; }
+.creds li::before { content: ""; width: 11px; height: 11px; background: var(--ochre); }
+.creds strong { color: var(--paper); font-weight: 700; }
+.creds i { font-family: var(--display); }
+.chi-place { font-size: .98rem; color: var(--sage); }
+@media (max-width: 820px) { .chi .wrap { grid-template-columns: minmax(0, 1fr); } }
+
+/* Domande frequenti */
+.faq { padding-top: 0; }
+.faq .wrap { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 6vw, 96px); align-items: start; }
+.faq-list { border-top: 1px solid var(--rule); }
+.faq details { border-bottom: 1px solid var(--rule); }
+.faq summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) 28px; gap: 1rem; align-items: center; padding-block: 1.15rem; font-family: var(--display); font-weight: 600; font-size: clamp(1.12rem, 1.8vw, 1.3rem); line-height: 1.3; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; width: 28px; height: 28px; background:
+  linear-gradient(var(--ink), var(--ink)) center / 14px 2px no-repeat,
+  linear-gradient(var(--ink), var(--ink)) center / 2px 14px no-repeat;
+  border: 1.5px solid var(--ink); border-radius: 50%; transition: transform .2s ease; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding: 0 2.8rem 1.3rem 0; max-width: 60ch; }
+@media (max-width: 820px) { .faq { padding-top: 0; }
+.faq .wrap { grid-template-columns: minmax(0, 1fr); } }
+
+/* Contatti */
+.contact-head { display: grid; gap: .3rem; margin-bottom: 1.6rem; }
+.contact-head h2 { font-size: clamp(2.6rem, 7vw, 5rem); }
+.contact-head .after { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(1.6rem, 3.6vw, 2.6rem); line-height: 1.15; color: var(--sage); }
+.contact-short { font-family: var(--display); font-weight: 700; font-size: clamp(1.25rem, 2.2vw, 1.6rem); margin-bottom: clamp(28px, 4vw, 44px); }
+.channels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); }
+.channel { background: var(--paper); color: var(--ink); padding: clamp(1.4rem, 3vw, 2.2rem); display: grid; gap: .9rem; align-content: start; min-width: 0; }
+.channel .kind { font-weight: 600; color: var(--muted); }
+.channel .big { font-family: var(--display); font-weight: 700; font-size: clamp(1.35rem, 2.6vw, 1.9rem); line-height: 1.15; overflow-wrap: anywhere; }
+.channel .big.mail { text-decoration: underline; text-decoration-color: var(--ochre); text-decoration-thickness: 4px; text-underline-offset: 8px; user-select: all; }
+.channel .row { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+.channel .subject { font-size: .95rem; color: var(--muted); }
+.copy-status { font-size: .92rem; font-weight: 600; min-height: 1.2em; }
+.reply-line { margin-top: clamp(28px, 4vw, 44px); font-family: var(--display); font-style: italic; font-weight: 500; font-size: clamp(1.2rem, 2.2vw, 1.55rem); line-height: 1.35; color: var(--mist); max-width: 34ch; }
+.write-tip { margin-top: 1rem; color: var(--sage); max-width: 60ch; }
+@media (max-width: 760px) { .channels { grid-template-columns: minmax(0, 1fr); } }
+
+.site-foot { background: var(--ink-deeper); color: var(--sage); padding-block: 2rem; font-size: .92rem; }
+.site-foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 2rem; }
+.site-foot strong { font-family: var(--display); color: var(--paper); font-weight: 700; }
+.site-foot a { text-decoration: none; }
+.site-foot a:hover { color: var(--paper); }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#inizio">
+      <strong>Francesco Pelizzaro</strong>
+      <span>Editor e consulente editoriale</span>
+    </a>
+    <nav class="nav" aria-label="Sezioni del sito">
+      <a href="#chi-sono">Chi sono</a>
+      <a href="#consulenza">La consulenza</a>
+      <a href="#esempio">Un esempio</a>
+      <a href="#materiali">Cosa mi invii</a>
+      <a class="btn btn--solid" href="#contatti">Scrivimi</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inizio">
+
+  <section class="band band--paper hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Consulenza editoriale mirata</span>
+        <h1 id="hero-title">
+          <span class="rl rl--1">Rileggi.</span>
+          <span class="rl rl--2">Rileggi.<svg class="strike" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><path d="M1 11 C 28 7, 62 14, 99 9"/></svg></span>
+          <span class="rl rl--3">Rileggi.<svg class="strike strike--a" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><path d="M1 10 C 30 8, 64 13, 99 9"/></svg><svg class="strike strike--b" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 C 34 13, 66 7, 98 11"/></svg></span>
+        </h1>
+        <p class="hero-turn">E qualcosa ancora non torna.</p>
+        <p class="hero-lead">Quando conosci un testo a memoria, smetti di vederlo. Partiamo da una domanda precisa sulle tue pagine: alla fine sai che cosa migliorare e da dove cominciare.</p>
+        <p class="hero-for">Per chi scrive, esordiente o già pubblicato, verso una casa editrice o l’autopubblicazione.</p>
+        <div class="actions">
+          <a class="btn btn--solid" href="#contatti">Raccontami il tuo progetto</a>
+          <a class="btn btn--line" href="#consulenza">Come funziona</a>
+        </div>
+      </div>
+      <figure class="portrait">
+        <img src="ritratto.webp" width="1100" height="965" alt="Francesco Pelizzaro">
+      </figure>
+    </div>
+  </section>
+
+  <section id="chi-sono" class="band band--ink slant chi" aria-labelledby="chi-title">
+    <div class="wrap">
+      <div class="hello">
+        <h2 id="chi-title">Piacere,</h2>
+        <p class="signature" aria-label="Francesco Pelizzaro"><span>Francesco</span><span>Pelizzaro</span></p>
+      </div>
+      <div class="chi-body">
+        <p class="claim">Conosco il manoscritto da <em>entrambe le parti</em>: di chi scrive e di chi lo rivede.</p>
+        <ul class="creds">
+          <li><span>Ho collaborato con il <strong>Gazzettino</strong> di Venezia.</span></li>
+          <li><span>Ho pubblicato <strong>cinque romanzi</strong>.</span></li>
+          <li><span>Ho frequentato il corso <strong>Feltrinelli Education</strong> <i>«Il lavoro di editing»</i>.</span></li>
+        </ul>
+        <p class="chi-place">Lavoro da Venezia. Le consulenze si svolgono online.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--paper slant-rev domande" aria-labelledby="domande-title">
+    <div class="wrap">
+      <div class="questions-intro">
+        <h2 id="domande-title" class="measure">La tua storia arriva <em>davvero</em> al lettore?</h2>
+        <p class="measure">Per scoprirlo partiamo da una domanda precisa, che si possa affrontare con la sinossi e un estratto. Per esempio:</p>
+      </div>
+      <div class="q-grid">
+        <div class="q-group">
+          <h3>Sul testo</h3>
+          <ul class="q-list">
+            <li><span class="q-text">Il mio incipit introduce un conflitto capace di coinvolgere?</span><span class="q-need"><b>Mi invii</b> le prime pagine consecutive e la sinossi.</span></li>
+            <li><span class="q-text">Perché questa scena di tensione perde ritmo?</span><span class="q-need"><b>Mi invii</b> la scena completa e la sinossi.</span></li>
+            <li><span class="q-text">La scelta del protagonista, in questo passaggio, è credibile?</span><span class="q-need"><b>Mi invii</b> il passaggio e una sinossi che ne chiarisca le premesse.</span></li>
+            <li><span class="q-text">Il punto di vista rende questa scena confusa?</span><span class="q-need"><b>Mi invii</b> un estratto continuo che mostri il problema.</span></li>
+            <li><span class="q-text">La relazione tra i personaggi emerge nella scena o viene soltanto spiegata?</span><span class="q-need"><b>Mi invii</b> la scena e la sinossi per il contesto.</span></li>
+          </ul>
+        </div>
+        <div class="q-side">
+          <div class="q-group">
+            <h3>Verso una casa editrice</h3>
+            <ul class="q-list">
+              <li><span class="q-text">La sinossi presenta con chiarezza il mio progetto?</span><span class="q-need"><b>Mi invii</b> la sinossi e un estratto rappresentativo.</span></li>
+              <li><span class="q-text">Come presento il manoscritto, e che cosa preparo prima dell’invio?</span><span class="q-need"><b>Mi invii</b> sinossi, estratto e il tuo obiettivo.</span></li>
+            </ul>
+          </div>
+          <div class="broad">
+            <p>«Il mio libro funziona?»<br>«Venderà?»</p>
+            <p>Domande così sono troppo ampie per un’ora di lavoro. Un dubbio sulla struttura possiamo trasformarlo in uno snodo preciso, da esaminare nella sinossi. Se invece serve leggere tutto il romanzo, te lo dico subito, prima di qualsiasi pagamento.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="consulenza" class="band band--sage slant consulenza" aria-labelledby="consulenza-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">La consulenza</span>
+        <h2 id="consulenza-title" class="measure">Cominciamo da ciò che vuoi migliorare.</h2>
+      </div>
+
+      <ol class="stairs">
+        <li class="stair">
+          <span class="stair-label">Prima</span>
+          <p>Leggo la tua sinossi e un estratto, entro limiti precisi.</p>
+        </li>
+        <li class="stair">
+          <span class="stair-label">Insieme</span>
+          <p>Un’ora online sulle tue pagine, con esempi presi dal testo.</p>
+        </li>
+        <li class="stair stair--goal">
+          <span class="stair-label">Dopo</span>
+          <p class="goal-main">Sai cosa migliorare e da dove partire.</p>
+          <p class="goal-sub">Priorità e primo passo, per iscritto, entro tre giorni lavorativi.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="esempio" class="band band--ochre slant-rev esempio" aria-labelledby="esempio-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p>Esempio di lavoro su un testo inventato</p>
+        <h2 id="esempio-title">«Qui manca tensione».<br>Vediamo perché.</h2>
+      </div>
+      <div class="ex-grid">
+        <figure class="note-card">
+          <blockquote>Aprì la porta. <span class="circled">Solo allora capì<svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M24 10 C 70 3, 150 3, 186 12 C 201 18, 199 44, 182 50 C 132 58, 62 58, 18 50 C 3 46, 1 22, 14 15 C 26 9, 44 8, 64 8"/></svg></span> che qualcuno lo aspettava.</blockquote>
+          <figcaption class="margin-note">
+            <svg viewBox="0 0 54 44" aria-hidden="true"><path d="M50 38 C 40 30, 22 22, 8 6"/><path d="M8 18 L 7 5 L 20 7"/></svg>
+            <span>il rischio arriva solo qui</span>
+          </figcaption>
+        </figure>
+        <div class="ex-explain">
+          <p>Se il pericolo non è già noto, il lettore lo scopre insieme al personaggio: è sorpresa.</p>
+          <p><strong>Vuoi tensione?</strong> Fallo avvertire prima:<span class="rewrite">«Sentì un respiro dietro la porta. La aprì lo stesso.»</span></p>
+          <p><strong>Vuoi sorpresa?</strong> La frase funziona già.</p>
+        </div>
+      </div>
+      <div class="method">
+        <h3>Il metodo, su ogni domanda</h3>
+        <ol>
+          <li>Individuo il passaggio.</li>
+          <li>Descrivo che cosa accade a chi legge.</li>
+          <li>Spiego il meccanismo narrativo.</li>
+          <li>Propongo un intervento praticabile.</li>
+        </ol>
+        <p class="creative">La decisione creativa resta tua.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="materiali" class="band band--paper slant" aria-labelledby="come-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Che cosa mi invii</span>
+        <h2 id="come-title" class="measure">Poche pagine, scelte bene.</h2>
+      </div>
+
+      <div class="how-block">
+        <div class="materials">
+          <article class="material">
+            <div class="qty"><b>2</b><span>cartelle al massimo</span></div>
+            <h4>La sinossi</h4>
+            <p class="chars">3.600 caratteri, spazi inclusi</p>
+            <p>Con il finale, se è già deciso. Se il romanzo è in corso, indica che cosa è ancora ipotetico.</p>
+          </article>
+          <article class="material">
+            <div class="qty"><b>10</b><span>cartelle al massimo</span></div>
+            <h4>L’estratto</h4>
+            <p class="chars">18.000 caratteri, spazi inclusi</p>
+            <p>Meglio un brano continuo, scelto in base al problema. Non deve essere per forza l’inizio.</p>
+          </article>
+          <article class="material">
+            <div class="qty"><b>7</b><span>risposte brevi</span></div>
+            <h4>La scheda iniziale</h4>
+            <p class="chars">Te la mando io</p>
+            <p>Genere, lunghezza, a che punto sei, come vuoi pubblicare, il problema, che cosa hai già provato, che risultato ti aspetti.</p>
+          </article>
+        </div>
+        <p class="cartella"><strong>Una cartella = 1.800 caratteri, spazi inclusi.</strong><span>Contano i caratteri, non le pagine del file. Formato Word, pagine numerate. Il manoscritto completo non serve.</span></p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="band band--paper faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Prima di scrivermi</span>
+        <h2 id="faq-title">Le domande che mi fanno più spesso.</h2>
+      </div>
+      <div class="faq-list">
+        <details>
+          <summary>Devo mandarti tutto il manoscritto?</summary>
+          <p>No. Per la consulenza bastano sinossi ed estratto, entro i limiti indicati. Per il primo contatto bastano poche righe.</p>
+        </details>
+        <details>
+          <summary>Mi dirai se il romanzo è pronto per essere pubblicato?</summary>
+          <p>No. Le conclusioni riguardano soltanto le pagine che ho letto: la consulenza non certifica che il manoscritto sia pronto e non garantisce pubblicazione, vendite o gradimento dei lettori.</p>
+        </details>
+        <details>
+          <summary>Come conto le cartelle?</summary>
+          <p>Una cartella vale 1.800 caratteri spazi inclusi. In Word trovi il numero nel conteggio parole, alla voce «caratteri (spazi inclusi)». La sinossi arriva fino a 3.600, l’estratto fino a 18.000.</p>
+        </details>
+        <details>
+          <summary>Il romanzo non è ancora finito: posso chiederti una consulenza?</summary>
+          <p>Sì. Nella sinossi indica con chiarezza che cosa è già scritto e che cosa è ancora un’ipotesi.</p>
+        </details>
+        <details>
+          <summary>Scrivo saggistica, non narrativa. Va bene lo stesso?</summary>
+          <p>Sì. In questo caso la sinossi presenta contenuti, struttura e obiettivo del progetto, sempre entro due cartelle.</p>
+        </details>
+        <details>
+          <summary>Dopo il riepilogo posso farti qualche domanda?</summary>
+          <p>Sì: entro sette giorni puoi scrivermi un’email per chiarire le indicazioni ricevute. Nuovi testi o nuove questioni richiedono un nuovo incarico.</p>
+        </details>
+        <details>
+          <summary>Che fine fanno i miei testi?</summary>
+          <p>Restano riservati. Non li uso in post, esempi o testimonianze senza il tuo permesso, e l’incontro non viene registrato.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contatti" class="band band--ink slant-rev" aria-labelledby="contatti-title">
+    <div class="wrap">
+      <div class="contact-head">
+        <h2 id="contatti-title">Raccontami la tua storia.</h2>
+        <p class="after">E dove vorresti portarla.</p>
+      </div>
+      <p class="contact-short">Bastano poche righe: il manoscritto può aspettare.</p>
+      <div class="channels">
+        <div class="channel">
+          <span class="kind">In privato</span>
+          <p class="big">Scrivimi su Instagram</p>
+          <p>Un messaggio diretto a <b>@francescopelizzaro</b>.</p>
+          <div class="row">
+            <a class="btn btn--solid" href="https://www.instagram.com/francescopelizzaro/" target="_blank" rel="noopener">Apri il profilo</a>
+          </div>
+        </div>
+        <div class="channel">
+          <span class="kind">Via email</span>
+          <p class="big mail" id="email-address">pelizzaro.editor@gmail.com</p>
+          <p class="subject">Oggetto: Consulenza editoriale</p>
+          <div class="row">
+            <button class="btn btn--solid" type="button" id="copy-email">Copia indirizzo</button>
+            <a class="btn btn--line" href="mailto:pelizzaro.editor@gmail.com?subject=Consulenza%20editoriale">Scrivi</a>
+          </div>
+          <p class="copy-status" id="copy-status" aria-live="polite"></p>
+        </div>
+      </div>
+      <p class="reply-line">Ti rispondo entro due giorni lavorativi, con tutti i dettagli, costo compreso.</p>
+      <p class="write-tip">Se vuoi, dimmi già il genere, a che punto sei e che cosa ti piacerebbe migliorare.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span><strong>Francesco Pelizzaro</strong> · Editor e consulente editoriale · Venezia</span>
+    <span>© 2026 · <a href="#inizio">Torna su ↑</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.getElementById("copy-email");
+  var status = document.getElementById("copy-status");
+  var addr = document.getElementById("email-address");
+  if (!btn) return;
+  function selectText() {
+    try {
+      var r = document.createRange();
+      r.selectNodeContents(addr);
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+    } catch (e) {}
+  }
+  btn.addEventListener("click", function () {
+    var text = addr.textContent.trim();
+    var done = function () { status.textContent = "Indirizzo copiato."; };
+    var fail = function () { selectText(); status.textContent = "Indirizzo selezionato: copialo con Ctrl+C o Cmd+C."; };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fail);
+      } else { fail(); }
+    } catch (e) { fail(); }
+  });
+})();
+</script>
+</body>
+</html>

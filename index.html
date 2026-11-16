@@ -33,6 +33,7 @@
   --ink: #193B38;
   --ink-deeper: #10292A;
   --paper: #F4F0E4;
+  --card: #FAF7EE;
   --ochre: #D9A441;
   --sage: #AACBC2;
   --mist: #DCE8E4;
@@ -68,6 +69,7 @@ body {
   overflow-x: hidden;
 }
 img { max-width: 100%; display: block; height: auto; }
+[hidden] { display: none !important; }
 a { color: inherit; }
 :focus-visible { outline: 3px solid var(--ochre); outline-offset: 3px; border-radius: 2px; }
 h1, h2, h3, p, ul, ol, blockquote, figure { margin: 0; }
@@ -175,21 +177,47 @@ em { font-style: italic; }
   .portrait { width: min(100%, 520px); margin: .5rem auto 0; }
 }
 
-/* Le domande */
-.questions-intro { display: grid; gap: 1.25rem; margin-bottom: clamp(36px, 5vw, 56px); }
+/* Il test */
+.questions-intro { display: grid; gap: 1rem; margin-bottom: clamp(32px, 5vw, 52px); }
 .questions-intro h2 em { font-weight: 700; text-decoration: underline; text-decoration-color: var(--ochre); text-decoration-thickness: .09em; text-underline-offset: .14em; text-decoration-skip-ink: none; }
 .questions-intro p { font-size: 1.12rem; }
-.q-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
-.q-group h3 { color: var(--muted); margin-bottom: .5rem; }
-.q-list { list-style: none; padding: 0; }
-.q-list li { padding-block: 1.15rem; border-top: 1px solid var(--rule); display: grid; gap: .35rem; }
-.q-list li:last-child { border-bottom: 1px solid var(--rule); }
-.q-text { font-family: var(--display); font-style: italic; font-weight: 500; font-size: clamp(1.18rem, 1.9vw, 1.4rem); line-height: 1.3; }
-.q-need { font-size: .95rem; color: var(--muted); }
-.q-need b { font-weight: 600; color: var(--ink); }
+.q-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: start; }
 .q-side { display: grid; gap: clamp(28px, 4vw, 40px); }
 .broad { border: 2px solid var(--ochre); padding: 1.4rem 1.5rem; display: grid; gap: .7rem; }
 .broad p:first-child { font-family: var(--display); font-style: italic; font-size: 1.3rem; line-height: 1.3; }
+.quiz { border: 2px solid var(--ink); background: var(--card); padding: clamp(1.3rem, 3vw, 2.2rem); min-width: 0; }
+.quiz-progress { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.1rem; }
+.quiz-count { font-weight: 600; font-size: .95rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.quiz-bar { display: flex; gap: 6px; flex: 1; max-width: 220px; }
+.quiz-bar i { flex: 1; height: 6px; background: var(--rule); }
+.quiz-bar i.done { background: var(--ochre); }
+.quiz-bar i.now { background: var(--ink); }
+.quiz-question { font-family: var(--display); font-weight: 700; font-size: clamp(1.45rem, 2.6vw, 2rem); line-height: 1.15; margin-bottom: 1.2rem; outline: none; text-wrap: balance; }
+.quiz-options { display: grid; gap: .6rem; }
+.quiz-option { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: .9rem; align-items: center; width: 100%; padding: .75rem 1rem; text-align: left; background: transparent; border: 1.5px solid var(--rule); color: var(--ink); font: inherit; font-size: 1.05rem; line-height: 1.3; cursor: pointer; transition: border-color .15s ease, background-color .15s ease, color .15s ease; }
+.quiz-option:hover { border-color: var(--ink); background: var(--mist); }
+.quiz-option .key { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border: 1.5px solid var(--ink); font-weight: 700; font-size: .9rem; }
+.quiz-option.is-picked { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.quiz-option.is-picked .key { background: var(--ochre); border-color: var(--ochre); color: var(--ink); }
+.quiz-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1rem; margin-top: 1.1rem; min-height: 2rem; }
+.quiz-back { background: none; border: 0; padding: .3rem 0; font: inherit; font-weight: 600; color: var(--ink); cursor: pointer; text-decoration: underline; text-decoration-color: var(--ochre); text-decoration-thickness: 2px; text-underline-offset: 5px; justify-self: start; }
+.quiz-hint { margin-left: auto; font-size: .88rem; color: var(--muted); }
+@media (hover: none) { .quiz-hint { display: none; } }
+.quiz-result { display: grid; gap: 1rem; }
+.result-kicker { display: inline-flex; align-items: center; gap: .6rem; font-weight: 600; color: var(--muted); }
+.result-kicker::before { content: ""; width: 10px; height: 10px; background: var(--ochre); flex: none; }
+.result-question { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(1.5rem, 2.8vw, 2.1rem); line-height: 1.2; outline: none; text-wrap: balance; }
+.result-send b { font-weight: 600; }
+.result-notes { list-style: none; padding: 0; display: grid; gap: .55rem; }
+.result-notes li { display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: .8rem; align-items: baseline; color: var(--muted); }
+.result-notes li::before { content: ""; width: 8px; height: 8px; background: var(--ochre); transform: translateY(-1px); }
+.result-message { display: grid; gap: .75rem; margin-top: .3rem; padding: 1.1rem 1.2rem; background: var(--mist); }
+.result-label { font-size: .92rem; font-weight: 600; color: var(--muted); }
+.result-text { font-family: var(--display); font-size: 1.05rem; line-height: 1.45; user-select: all; }
+.quiz .row { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+.quiz-enter { animation: quiz-in .28s ease both; }
+@keyframes quiz-in { from { opacity: .3; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .quiz-enter { animation: none; } }
 @media (max-width: 820px) { .q-grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* La consulenza */
@@ -255,23 +283,46 @@ em { font-style: italic; }
 @media (max-width: 900px) { .materials { grid-template-columns: minmax(0, 1fr); } }
 
 
-/* Chi sono */
-.chi .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+/* Chi sono: l’esperienza raccontata come competenze, poi i romanzi */
+.chi-top { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
 .hello { display: grid; gap: .2rem; }
 .hello h2 { font-size: clamp(2.6rem, 6vw, 4.4rem); }
 .signature { font-family: var(--sign); font-weight: 400; font-size: clamp(3.6rem, 8.5vw, 6.6rem); line-height: 1.02; color: var(--paper); }
 .signature span { display: block; }
 .signature span + span { padding-left: .35em; }
-.chi-body { display: grid; gap: 1.8rem; }
+.chi-body { display: grid; gap: 1.4rem; }
 .claim { font-family: var(--display); font-style: italic; font-weight: 500; font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.25; max-width: 24ch; }
 .claim em { color: var(--ochre); }
-.creds { list-style: none; padding: 0; display: grid; gap: .9rem; font-size: 1.15rem; color: var(--mist); }
-.creds li { display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: 1rem; align-items: baseline; }
-.creds li::before { content: ""; width: 11px; height: 11px; background: var(--ochre); }
-.creds strong { color: var(--paper); font-weight: 700; }
-.creds i { font-family: var(--display); }
+.chi-intro { font-size: 1.15rem; color: var(--mist); max-width: 44ch; }
 .chi-place { font-size: .98rem; color: var(--sage); }
-@media (max-width: 820px) { .chi .wrap { grid-template-columns: minmax(0, 1fr); } }
+.lessons { list-style: none; padding: 0; margin-top: clamp(48px, 7vw, 88px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 44px); }
+.lesson { border-top: 2px solid var(--ochre); padding-top: 1.2rem; display: grid; gap: .7rem; align-content: start; }
+.lesson-where { font-weight: 600; color: var(--ochre); letter-spacing: .02em; }
+.lesson-head { font-family: var(--display); font-style: italic; font-weight: 600; font-size: clamp(1.35rem, 2.2vw, 1.7rem); line-height: 1.2; color: var(--paper); text-wrap: balance; }
+.lesson p:not(.lesson-head) { color: var(--mist); }
+.lesson i { font-family: var(--display); }
+.books { margin-top: clamp(56px, 8vw, 104px); padding-top: clamp(28px, 4vw, 40px); border-top: 1px solid var(--rule-on-ink); }
+.books-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .5rem 2rem; margin-bottom: 1.6rem; }
+.books-head h3 { font-family: var(--display); font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 2rem); letter-spacing: -0.01em; color: var(--paper); }
+.books-row { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); }
+.book { position: relative; display: flex; flex-direction: column; gap: .7rem; min-width: 0; }
+.book-cover { position: relative; display: block; aspect-ratio: 2 / 3; background: var(--ink-deeper); box-shadow: 0 18px 32px -18px rgba(0, 0, 0, .65); overflow: hidden; transition: transform .2s ease; }
+.book-cover:hover { transform: translateY(-4px); }
+.book-cover img { width: 100%; height: 100%; object-fit: cover; }
+.book-fallback { display: none; position: absolute; inset: 0; padding: 1rem; align-items: flex-end; font-family: var(--display); font-style: italic; font-weight: 700; font-size: 1.1rem; line-height: 1.2; color: var(--paper); border: 1px solid var(--rule-on-ink); background: linear-gradient(160deg, var(--ink), var(--ink-deeper)); }
+.book.no-cover .book-cover img { display: none; }
+.book.no-cover .book-fallback { display: flex; }
+.book-title { flex: 1; font-family: var(--display); font-style: italic; font-weight: 500; font-size: 1.02rem; line-height: 1.3; color: var(--paper); }
+.book-buy { align-self: flex-start; display: inline-flex; align-items: center; min-height: 40px; padding: .45rem .9rem; border: 1.5px solid var(--paper); color: var(--paper); text-decoration: none; font-weight: 600; font-size: .92rem; line-height: 1.2; transition: background-color .18s ease, color .18s ease, border-color .18s ease; }
+.book-buy:hover { background: var(--ochre); border-color: var(--ochre); color: var(--ink); }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 900px) {
+  .lessons { grid-template-columns: minmax(0, 1fr); }
+  .books-row { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(-1 * var(--gutter)); padding: 0 var(--gutter) .9rem; scroll-padding-inline: var(--gutter); }
+  .book { flex: 0 0 min(38vw, 200px); scroll-snap-align: start; }
+}
+@media (max-width: 820px) { .chi-top { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .book-cover { transition: none; } .book-cover:hover { transform: none; } }
 
 /* Domande frequenti */
 .faq { padding-top: 0; }
@@ -322,8 +373,8 @@ em { font-style: italic; }
     </a>
     <nav class="nav" aria-label="Sezioni del sito">
       <a href="#chi-sono">Chi sono</a>
+      <a href="#test">Il test</a>
       <a href="#consulenza">La consulenza</a>
-      <a href="#esempio">Un esempio</a>
       <a href="#materiali">Cosa mi invii</a>
       <a class="btn btn--solid" href="#contatti">Scrivimi</a>
     </nav>
@@ -346,7 +397,7 @@ em { font-style: italic; }
         <p class="hero-for">Per chi scrive, esordiente o già pubblicato, verso una casa editrice o l’autopubblicazione.</p>
         <div class="actions">
           <a class="btn btn--solid" href="#contatti">Raccontami il tuo progetto</a>
-          <a class="btn btn--line" href="#consulenza">Come funziona</a>
+          <a class="btn btn--line" href="#test">Fai il test, due minuti</a>
         </div>
       </div>
       <div class="hero-side">
@@ -377,47 +428,126 @@ em { font-style: italic; }
 
   <section id="chi-sono" class="band band--ink slant chi" aria-labelledby="chi-title">
     <div class="wrap">
-      <div class="hello">
-        <h2 id="chi-title">Piacere,</h2>
-        <p class="signature" aria-label="Francesco Pelizzaro"><span>Francesco</span><span>Pelizzaro</span></p>
+      <div class="chi-top">
+        <div class="hello">
+          <h2 id="chi-title">Piacere,</h2>
+          <p class="signature" aria-label="Francesco Pelizzaro"><span>Francesco</span><span>Pelizzaro</span></p>
+        </div>
+        <div class="chi-body">
+          <p class="claim">Conosco il manoscritto da <em>entrambe le parti</em>: di chi scrive e di chi lo rivede.</p>
+          <p class="chi-intro">Non riscrivo il tuo libro. Ti aiuto a vedere quello che vedrà il lettore, con uno sguardo che si è formato in tre posti diversi.</p>
+        </div>
       </div>
-      <div class="chi-body">
-        <p class="claim">Conosco il manoscritto da <em>entrambe le parti</em>: di chi scrive e di chi lo rivede.</p>
-        <ul class="creds">
-          <li><span>Ho collaborato con il <strong>Gazzettino</strong> di Venezia.</span></li>
-          <li><span>Ho pubblicato <strong>cinque romanzi</strong>.</span></li>
-          <li><span>Ho frequentato il corso <strong>Feltrinelli Education</strong> <i>«Il lavoro di editing»</i>.</span></li>
+
+      <ul class="lessons">
+        <li class="lesson">
+          <span class="lesson-where">Il Gazzettino</span>
+          <p class="lesson-head">Il lettore non concede seconde occasioni.</p>
+          <p>Collaborando con il Gazzettino di Venezia ho imparato che un pezzo si gioca nelle prime righe e che ogni parola deve guadagnarsi il posto. È la prima cosa che guardo nelle tue pagine: dove agganciano e dove lasciano andare.</p>
+        </li>
+        <li class="lesson">
+          <span class="lesson-where">Cinque romanzi</span>
+          <p class="lesson-head">Davanti alle proprie pagine si diventa ciechi.</p>
+          <p>Ho scritto e pubblicato cinque romanzi. So quanto si smette di vedere un testo dopo l’ennesima rilettura, e che cosa si prova quando qualcuno ci mette mano. Per questo le mie osservazioni sono motivate e rispettano le tue scelte.</p>
+        </li>
+        <li class="lesson">
+          <span class="lesson-where">Feltrinelli Education</span>
+          <p class="lesson-head">Dall’istinto al metodo.</p>
+          <p>Con il corso <i>«Il lavoro di editing»</i> ho dato una struttura a questo sguardo: dall’impressione di lettura risalgo al meccanismo che la produce, e da lì a un intervento che puoi fare da solo.</p>
+        </li>
+      </ul>
+
+      <div class="books" id="romanzi">
+        <div class="books-head">
+          <h3>I miei romanzi</h3>
+          <p class="chi-place">Lavoro da Venezia. Le consulenze si svolgono online.</p>
+        </div>
+        <ul class="books-row">
+          <li class="book">
+            <a class="book-cover" href="https://www.amazon.it/dp/B0759VJNL6" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="https://m.media-amazon.com/images/I/91faDaQuSaL._SY600_.jpg" width="400" height="600" loading="lazy" alt="" onerror="this.closest('.book').classList.add('no-cover')">
+              <span class="book-fallback">Etnik</span>
+            </a>
+            <p class="book-title">Etnik</p>
+            <a class="book-buy" href="https://www.amazon.it/dp/B0759VJNL6" target="_blank" rel="noopener">Acquista su Amazon<span class="visually-hidden">: Etnik</span></a>
+          </li>
+          <li class="book">
+            <a class="book-cover" href="https://www.amazon.it/dp/B08FBG7FTJ" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="https://m.media-amazon.com/images/I/81aq7lsdg0L._SY600_.jpg" width="400" height="600" loading="lazy" alt="" onerror="this.closest('.book').classList.add('no-cover')">
+              <span class="book-fallback">Gerome X</span>
+            </a>
+            <p class="book-title">Gerome X</p>
+            <a class="book-buy" href="https://www.amazon.it/dp/B08FBG7FTJ" target="_blank" rel="noopener">Acquista su Amazon<span class="visually-hidden">: Gerome X</span></a>
+          </li>
+          <li class="book">
+            <a class="book-cover" href="https://www.amazon.it/dp/B0C9WHGLJW" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="https://m.media-amazon.com/images/I/81Iwol7F41L._SY600_.jpg" width="400" height="600" loading="lazy" alt="" onerror="this.closest('.book').classList.add('no-cover')">
+              <span class="book-fallback">Jonathan Evermhör e la Porta del Sole</span>
+            </a>
+            <p class="book-title">Jonathan Evermhör e la Porta del Sole</p>
+            <a class="book-buy" href="https://www.amazon.it/dp/B0C9WHGLJW" target="_blank" rel="noopener">Acquista su Amazon<span class="visually-hidden">: Jonathan Evermhör e la Porta del Sole</span></a>
+          </li>
+          <li class="book">
+            <a class="book-cover" href="https://www.amazon.it/dp/B0CZZKVP95" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="https://m.media-amazon.com/images/I/81MnFon5+XL._SY600_.jpg" width="400" height="600" loading="lazy" alt="" onerror="this.closest('.book').classList.add('no-cover')">
+              <span class="book-fallback">Jonathan Evermhör e i segni della morte</span>
+            </a>
+            <p class="book-title">Jonathan Evermhör e i segni della morte</p>
+            <a class="book-buy" href="https://www.amazon.it/dp/B0CZZKVP95" target="_blank" rel="noopener">Acquista su Amazon<span class="visually-hidden">: Jonathan Evermhör e i segni della morte</span></a>
+          </li>
+          <li class="book">
+            <a class="book-cover" href="https://www.amazon.it/dp/B0D45WTDX3" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <img src="https://m.media-amazon.com/images/I/71DOuvlR++L._SY600_.jpg" width="400" height="600" loading="lazy" alt="" onerror="this.closest('.book').classList.add('no-cover')">
+              <span class="book-fallback">Jonathan Evermhör: il ciclo completo</span>
+            </a>
+            <p class="book-title">Jonathan Evermhör: il ciclo completo</p>
+            <a class="book-buy" href="https://www.amazon.it/dp/B0D45WTDX3" target="_blank" rel="noopener">Acquista su Amazon<span class="visually-hidden">: Jonathan Evermhör, il ciclo completo</span></a>
+          </li>
         </ul>
-        <p class="chi-place">Lavoro da Venezia. Le consulenze si svolgono online.</p>
       </div>
     </div>
   </section>
 
-  <section class="band band--paper slant-rev domande" aria-labelledby="domande-title">
+  <section id="test" class="band band--paper slant-rev domande" aria-labelledby="domande-title">
     <div class="wrap">
       <div class="questions-intro">
+        <span class="eyebrow">Due minuti, quattro domande</span>
         <h2 id="domande-title" class="measure">La tua storia arriva <em>davvero</em> al lettore?</h2>
-        <p class="measure">Per scoprirlo partiamo da una domanda precisa, che si possa affrontare con la sinossi e un estratto. Per esempio:</p>
+        <p class="measure">Rispondi d’istinto. Alla fine trovi la domanda da cui potremmo partire insieme, con quello che dovresti mandarmi.</p>
       </div>
       <div class="q-grid">
-        <div class="q-group">
-          <h3>Sul testo</h3>
-          <ul class="q-list">
-            <li><span class="q-text">Il mio incipit introduce un conflitto capace di coinvolgere?</span><span class="q-need"><b>Mi invii</b> le prime pagine consecutive e la sinossi.</span></li>
-            <li><span class="q-text">Perché questa scena di tensione perde ritmo?</span><span class="q-need"><b>Mi invii</b> la scena completa e la sinossi.</span></li>
-            <li><span class="q-text">La scelta del protagonista, in questo passaggio, è credibile?</span><span class="q-need"><b>Mi invii</b> il passaggio e una sinossi che ne chiarisca le premesse.</span></li>
-            <li><span class="q-text">Il punto di vista rende questa scena confusa?</span><span class="q-need"><b>Mi invii</b> un estratto continuo che mostri il problema.</span></li>
-            <li><span class="q-text">La relazione tra i personaggi emerge nella scena o viene soltanto spiegata?</span><span class="q-need"><b>Mi invii</b> la scena e la sinossi per il contesto.</span></li>
-          </ul>
+        <div class="quiz" id="quiz">
+          <div class="quiz-step" id="quiz-step">
+            <div class="quiz-progress">
+              <span class="quiz-count" id="quiz-count">1 di 4</span>
+              <span class="quiz-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </div>
+            <p class="quiz-question" id="quiz-question" tabindex="-1">A che punto è la tua storia?</p>
+            <div class="quiz-options" id="quiz-options" role="group" aria-labelledby="quiz-question"></div>
+            <div class="quiz-foot">
+              <button class="quiz-back" type="button" id="quiz-back" hidden>← Indietro</button>
+              <span class="quiz-hint">Puoi rispondere anche con i tasti A, B, C e D.</span>
+            </div>
+          </div>
+          <div class="quiz-result" id="quiz-result" hidden>
+            <span class="result-kicker" id="result-kicker">La domanda da cui potremmo partire</span>
+            <p class="result-question" id="result-question" tabindex="-1"></p>
+            <p class="result-send" id="result-send"></p>
+            <ul class="result-notes" id="result-notes"></ul>
+            <div class="result-message" id="result-message-box">
+              <span class="result-label">Il messaggio è già pronto: copialo per Instagram o mandalo per email.</span>
+              <p class="result-text" id="result-text"></p>
+              <div class="row">
+                <a class="btn btn--solid" id="result-mail" href="mailto:pelizzaro.editor@gmail.com?subject=Consulenza%20editoriale">Mandalo per email</a>
+                <button class="btn btn--line" type="button" id="result-copy">Copia per Instagram</button>
+                <a class="btn btn--line" href="https://www.instagram.com/francescopelizzaro/" target="_blank" rel="noopener">Apri Instagram</a>
+              </div>
+              <p class="copy-status" id="result-status" aria-live="polite"></p>
+            </div>
+            <button class="quiz-back" type="button" id="quiz-restart">↺ Rifai il test</button>
+          </div>
         </div>
         <div class="q-side">
-          <div class="q-group">
-            <h3>Verso una casa editrice</h3>
-            <ul class="q-list">
-              <li><span class="q-text">La sinossi presenta con chiarezza il mio progetto?</span><span class="q-need"><b>Mi invii</b> la sinossi e un estratto rappresentativo.</span></li>
-              <li><span class="q-text">Come presento il manoscritto, e che cosa preparo prima dell’invio?</span><span class="q-need"><b>Mi invii</b> sinossi, estratto e il tuo obiettivo.</span></li>
-            </ul>
-          </div>
           <div class="broad">
             <p>«Il mio libro funziona?»<br>«Venderà?»</p>
             <p>Domande così sono troppo ampie per un’ora di lavoro. Un dubbio sulla struttura possiamo trasformarlo in uno snodo preciso, da esaminare nella sinossi. Se invece serve leggere tutto il romanzo, te lo dico subito, prima di qualsiasi pagamento.</p>
@@ -624,6 +754,170 @@ em { font-style: italic; }
       } else { fail(); }
     } catch (e) { fail(); }
   });
+})();
+</script>
+<script>
+(function () {
+  var quiz = document.getElementById("quiz");
+  if (!quiz) return;
+  var QUESTIONS = [
+    { q: "A che punto è la tua storia?", o: [["idea", "È ancora un’idea"], ["writing", "La sto scrivendo"], ["draft", "Ho finito la prima stesura"], ["revision", "Sono in revisione"]] },
+    { q: "Che cosa ti fa dubitare di più, quando rileggi?", o: [["incipit", "L’inizio: non so se aggancia"], ["ritmo", "A metà la storia rallenta"], ["personaggio", "Un personaggio non mi convince"], ["sinossi", "Non riesco a riassumerla in poche righe"]] },
+    { q: "Che cosa ti hanno detto i primi lettori?", o: [["none", "Nessuno l’ha ancora letta"], ["vague", "«Bello», ma senza spiegare perché"], ["lost", "Che in alcuni punti si perdono"], ["bored", "Che in alcuni punti si annoiano"]] },
+    { q: "Dove vuoi portarla?", o: [["publisher", "A una casa editrice"], ["self", "All’autopubblicazione"], ["unsure", "Non lo so ancora"], ["check", "Voglio solo capire se funziona"]] }
+  ];
+  var FOCUS = {
+    incipit: { q: "Il mio incipit introduce un conflitto capace di coinvolgere?", send: "le prime pagine consecutive, fino a 10 cartelle, e la sinossi." },
+    ritmo: { q: "Perché questa parte della storia perde ritmo?", send: "il brano in cui la storia rallenta, completo, e la sinossi." },
+    personaggio: { q: "In questo passaggio, le scelte del mio personaggio sono credibili?", send: "il passaggio e una sinossi che ne chiarisca le premesse." },
+    sinossi: { q: "La sinossi presenta con chiarezza il mio progetto?", send: "la sinossi, fino a 2 cartelle, e un estratto rappresentativo." }
+  };
+  var KEYS = ["A", "B", "C", "D"];
+  var answers = [];
+  var step = 0;
+
+  var elStep = document.getElementById("quiz-step");
+  var elCount = document.getElementById("quiz-count");
+  var elBars = quiz.querySelectorAll(".quiz-bar i");
+  var elQuestion = document.getElementById("quiz-question");
+  var elOptions = document.getElementById("quiz-options");
+  var elBack = document.getElementById("quiz-back");
+  var elResult = document.getElementById("quiz-result");
+  var elKicker = document.getElementById("result-kicker");
+  var elRQ = document.getElementById("result-question");
+  var elSend = document.getElementById("result-send");
+  var elNotes = document.getElementById("result-notes");
+  var elBox = document.getElementById("result-message-box");
+  var elText = document.getElementById("result-text");
+  var elMail = document.getElementById("result-mail");
+  var elCopy = document.getElementById("result-copy");
+  var elStatus = document.getElementById("result-status");
+  var elRestart = document.getElementById("quiz-restart");
+  var busy = false;
+
+  function enter(el) {
+    el.classList.remove("quiz-enter");
+    void el.offsetWidth;
+    el.classList.add("quiz-enter");
+  }
+
+  function render(focus) {
+    var item = QUESTIONS[step];
+    elCount.textContent = (step + 1) + " di " + QUESTIONS.length;
+    for (var i = 0; i < elBars.length; i++) {
+      elBars[i].className = i < step ? "done" : (i === step ? "now" : "");
+    }
+    elQuestion.textContent = item.q;
+    elOptions.innerHTML = "";
+    item.o.forEach(function (opt, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "quiz-option" + (answers[step] === opt[0] ? " is-picked" : "");
+      b.setAttribute("data-value", opt[0]);
+      b.innerHTML = '<span class="key" aria-hidden="true">' + KEYS[i] + "</span><span></span>";
+      b.lastChild.textContent = opt[1];
+      b.addEventListener("click", function () { choose(i); });
+      elOptions.appendChild(b);
+    });
+    elBack.hidden = step === 0;
+    enter(elStep);
+    if (focus) { try { elQuestion.focus({ preventScroll: true }); } catch (e) {} }
+  }
+
+  function choose(i) {
+    if (busy || !elResult.hidden) return;
+    var opt = QUESTIONS[step].o[i];
+    if (!opt) return;
+    busy = true;
+    answers[step] = opt[0];
+    var buttons = elOptions.querySelectorAll(".quiz-option");
+    for (var k = 0; k < buttons.length; k++) buttons[k].classList.toggle("is-picked", k === i);
+    setTimeout(function () {
+      busy = false;
+      if (step < QUESTIONS.length - 1) { step++; render(true); }
+      else { showResult(); }
+    }, 240);
+  }
+
+  function li(text) {
+    var item = document.createElement("li");
+    item.textContent = text;
+    elNotes.appendChild(item);
+  }
+
+  function showResult() {
+    var stage = answers[0], focus = answers[1], feedback = answers[2], goal = answers[3];
+    elNotes.innerHTML = "";
+    elStatus.textContent = "";
+    if (stage === "idea") {
+      elKicker.textContent = "Per ora è presto";
+      elRQ.textContent = "La consulenza lavora su pagine già scritte.";
+      elSend.textContent = "Quando avrai le prime pagine e una sinossi, rifai il test: troverai la domanda da cui partire.";
+      elBox.hidden = true;
+    } else {
+      var f = FOCUS[focus];
+      elKicker.textContent = "La domanda da cui potremmo partire";
+      elRQ.textContent = "«" + f.q + "»";
+      elSend.innerHTML = "<b>Che cosa mi invii:</b> ";
+      elSend.appendChild(document.createTextNode(f.send));
+      if (stage === "writing") li("Il libro non è finito? Va bene: nella sinossi indica che cosa è già scritto e che cosa è ancora un’ipotesi.");
+      if (feedback === "none") li("Nessuno l’ha ancora letta: sarò il primo sguardo esterno, e ti dirò che effetto fanno le pagine, non soltanto se mi piacciono.");
+      if (feedback === "vague") li("Un «bello» senza motivi non aiuta a correggere: le mie osservazioni hanno sempre riferimenti precisi alle tue pagine.");
+      if (feedback === "lost") li("Se i lettori si perdono, guarderemo anche il punto di vista e la chiarezza delle scene.");
+      if (feedback === "bored") li(focus === "ritmo" ? "I lettori lo confermano: partiamo dai punti in cui si annoiano." : "Se i lettori si annoiano, guarderemo anche il ritmo.");
+      if (goal === "publisher") li(focus === "sinossi" ? "Per una casa editrice la sinossi è spesso la prima pagina che viene letta: vale la pena che sia limpida." : "Puntando a una casa editrice, conviene curare anche la sinossi: spesso è la prima pagina che viene letta.");
+      if (goal === "self") li("Con l’autopubblicazione i tempi li decidi tu: il primo passo che ti indicherò potrai farlo subito.");
+      if (goal === "unsure") li("Sulla strada da prendere possiamo ragionare insieme, ma prima conviene che le pagine funzionino.");
+      if (goal === "check") li("«Funziona?» è una domanda troppo ampia per un’ora: per questo la trasformiamo in una più precisa, come questa.");
+      var stageText = { writing: "Sto scrivendo il mio libro", draft: "Ho finito la prima stesura del mio libro", revision: "Sto rivedendo il mio libro" }[stage];
+      var goalText = { publisher: " e vorrei proporlo a una casa editrice", self: " e vorrei autopubblicarlo" }[goal] || "";
+      var msg = "Ciao Francesco, ho fatto il test sul tuo sito. " + stageText + goalText + ". Vorrei partire da questa domanda: «" + f.q + "» Come possiamo procedere?";
+      elText.textContent = msg;
+      elMail.href = "mailto:pelizzaro.editor@gmail.com?subject=" + encodeURIComponent("Consulenza editoriale") + "&body=" + encodeURIComponent(msg);
+      elBox.hidden = false;
+    }
+    elStep.hidden = true;
+    elResult.hidden = false;
+    enter(elResult);
+    try { elRQ.focus({ preventScroll: true }); } catch (e) {}
+  }
+
+  elBack.addEventListener("click", function () {
+    if (step > 0) { step--; render(true); }
+  });
+  elRestart.addEventListener("click", function () {
+    answers = []; step = 0;
+    elResult.hidden = true; elStep.hidden = false;
+    render(true);
+  });
+  elCopy.addEventListener("click", function () {
+    var text = elText.textContent;
+    var done = function () { elStatus.textContent = "Messaggio copiato. Incollalo nella chat di Instagram."; };
+    var fail = function () {
+      try { var r = document.createRange(); r.selectNodeContents(elText); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } catch (e) {}
+      elStatus.textContent = "Messaggio selezionato: copialo con Ctrl+C o Cmd+C.";
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fail);
+      else fail();
+    } catch (e) { fail(); }
+  });
+
+  var inView = false;
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (entries) { inView = entries[0].isIntersecting; }, { threshold: 0.35 }).observe(quiz);
+  }
+  document.addEventListener("keydown", function (e) {
+    if (!inView || e.altKey || e.ctrlKey || e.metaKey || elStep.hidden) return;
+    var tag = (e.target && e.target.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA") return;
+    var k = e.key.toUpperCase();
+    var i = KEYS.indexOf(k);
+    if (i < 0 && /^[1-4]$/.test(k)) i = Number(k) - 1;
+    if (i >= 0) { e.preventDefault(); choose(i); }
+  });
+
+  render(false);
 })();
 </script>
 </body>
